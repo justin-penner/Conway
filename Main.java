@@ -1,10 +1,28 @@
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello Sylas!");
-        System.out.println("Hello Justin");
-        System.out.println("Hello MIKA!!");
+import java.io.IOException;
 
-        System.out.println("Random: " + Math.random());
+public class Main {
+    
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Field field = new Field();
+        field.fillField();
+        field.printField();
+        start(field);
+    }
+
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    }  
+
+    public static void start(Field field) throws InterruptedException {
+        field.renderNew();
+        Thread.sleep(500);
+        clearScreen();
+        Thread.sleep(500);
+        field.printField();
+        if(field.isThereLife()) {
+            start(field);
+        }
     }
 
 }
