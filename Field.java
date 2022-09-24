@@ -22,7 +22,7 @@ public class Field {
     public int[][] fillField() {
         for(int x = 0; x < FIELD_X; x++) {
             for(int y = 0; y < FIELD_Y; y++) {
-                double value = Math.random()-0.2;
+                double value = Math.random()-0.3;
                 if(value > 0.5) {
                     field[y][x] = 1;
                 }
@@ -52,12 +52,35 @@ public class Field {
     }
 
     public void renderNew() {
-        
+        for(int i = 0; i < 20; i++) {
+            for(int j = 0; j <20; j++) {
+                int cellsNum = testNearbyCells(i, j);
+                setCell(i, j, cellsNum);
+            }
+        }
     }
 
-    // public boolean testNearbyCells(int x, int y) {
+    public int testNearbyCells(int x, int y) {
+        int counter = 0;
+        if(x>0 && x<19 && y>0 && y<19) {
+            for(int i = -1; i <= 1; i++) {
+                for(int j = -1; j <= 1; j++) {
+                    if(field[y+j][x+i] == 1) {
+                        counter++;
+                    }
+                }
+            }
+        }
+        return counter;
+    }
 
-    // }
-
-
+    public void setCell(int i, int j, int cellsNum) {
+        switch(cellsNum) {
+            case 0 -> field[j][i] = 0;
+            case 1 -> field[j][i] = 0;
+            case 2 -> field[j][i] = 1;
+            case 3 -> field[j][i] = 1;
+            default -> field[j][i] = 0;
+        }
+    }
 }
